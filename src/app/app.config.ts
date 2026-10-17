@@ -43,9 +43,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
 
     //Local Providers
-    { provide: UserRepository, useClass: UserLocalRepositoryImpl },
-    { provide: ProductRepository, useClass: ProductLocalRepositoryImpl },
-    { provide: BookRepository, useClass: BookLocalRepositoryImpl },
+    //{ provide: UserRepository, useClass: UserLocalRepositoryImpl },
+    //{ provide: ProductRepository, useClass: ProductLocalRepositoryImpl },
+    //{ provide: BookRepository, useClass: BookLocalRepositoryImpl },
     
     //Node Providers
     //{ provide: UserRepository, useClass: UserNodeRepositoryImpl },
@@ -53,9 +53,9 @@ export const appConfig: ApplicationConfig = {
     //{ provide: BookRepository, useClass: BookNodeRepositoryImpl },
 
     //SpringBoot Providers
-    //{ provide: UserRepository, useClass: UserSpringBootRepositoryImpl },
-    //{ provide: ProductRepository, useClass: ProductSpringBootRepositoryImpl },
-    //{ provide: BookRepository, useClass: BookSpringBootRepositoryImpl },
+    { provide: UserRepository, useClass: UserSpringBootRepositoryImpl },
+    { provide: ProductRepository, useClass: ProductSpringBootRepositoryImpl },
+    { provide: BookRepository, useClass: BookSpringBootRepositoryImpl },
 
     /**
      * Proveedor de listeners globales de errores del navegador.
