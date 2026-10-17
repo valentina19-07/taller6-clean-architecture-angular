@@ -1,3 +1,39 @@
+# Frontend Angular – Clean Architecture
+
+Cliente Angular 20 con 3 módulos: **Usuarios, Productos y Libros**.
+
+## Capas
+
+| Capa | Carpeta | Contenido |
+|---|---|---|
+| Domain | `core/domain` | Modelos y contratos (`*Repository`, clases abstractas) |
+| Application | `core/application/usecases` | Casos de uso `GetAll*UseCase` |
+| Infrastructure | `core/infrastructure` | `DataService` y repositorios: `local`, `node`, `springboot` |
+| Presentation | `presentation` | Páginas y componentes. Solo usan casos de uso |
+
+## Cómo cambiar de backend
+
+En `src/app/app.config.ts` se elige la implementación de cada repositorio
+(Local, Node o Spring Boot) comentando/descomentando los providers.
+No se modifica ningún caso de uso ni componente.
+
+## Ejecución
+
+```bash
+npm install
+npm run start         # http://localhost:4200
+npm run test:coverage # pruebas + cobertura (>90 %)
+npm run compodoc      # documentación en /documentation
+```
+
+Backend Node: `http://localhost:3000` · Backend Spring Boot: `http://localhost:8080`
+
+## Integrantes
+
+Juan · Valen
+
+---
+
 # Clean Architecture en Angular
 
 ```
