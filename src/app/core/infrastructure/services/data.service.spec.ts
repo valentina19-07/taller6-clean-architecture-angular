@@ -2,6 +2,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../environments/environment';
+import { BOOKS_MOCK } from '../../../mocks/books.mocks';
+import { Book } from '../../domain/models/book.model';
 import { Product } from '../../domain/models/product.model';
 import { User } from '../../domain/models/user.model';
 import { DataService } from './data.service';
@@ -24,6 +26,10 @@ jest.mock('@faker-js/faker', () => ({
     internet: {
       email: jest.fn(() => 'test@mail.com'),
     },
+    book: {
+      title: jest.fn(() => 'Libro Test'),
+      author: jest.fn(() => 'Autor Test'),
+    },
     helpers: {
       arrayElement: jest.fn((arr) => arr[0]),
     },
@@ -36,6 +42,7 @@ describe('DataService', () => {
   
   const countUsers = 5;
   const countProducts = 5;
+  const countBooks = 5;
   const pathUrlNode = `${environment.baseUrlNode}/api`;
   const pathUrlSpringBoot = `${environment.baseUrlSpringBoot}/api`;
 
@@ -107,6 +114,31 @@ describe('DataService', () => {
     const req = httpMock.expectOne(`${pathUrlSpringBoot}/products/${countProducts}`);
     expect(req.request.method).toBe('GET');
     req.flush(PRODUCTS_MOCK);
+  });
+
+  it('debe devolver el listado de libros locale', (done) => {
+    service.getAllBooksLocal(countBooks).subscribe((books: Book[]) => {
+      expect(books.length).toEqual(countBooks);
+      done();
+    });
+  });
+
+  it('debe obtener libros desde Node por HTTP', () => {
+    service.getAllBooksNode(countBooks).subscribe((books) => {
+      expect(books).toEqual(BOOKS_MOCK);
+    });
+    const req = httpMock.expectOne(`${pathUrlNode}/books/${countBooks}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(BOOKS_MOCK);
+  });
+
+  it('debe obtener libros desde SpringBoot por HTTP', () => {
+    service.getAllBooksSpringBoot(countBooks).subscribe((books) => {
+      expect(books).toEqual(BOOKS_MOCK);
+    });
+    const req = httpMock.expectOne(`${pathUrlSpringBoot}/books/${countBooks}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(BOOKS_MOCK);
   });
 
 });

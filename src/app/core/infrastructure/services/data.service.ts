@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { faker } from '@faker-js/faker';
 import { Observable, of } from "rxjs";
 import { environment } from "../../../../environments/environment";
+import { Book, BookGenre } from "../../domain/models/book.model";
 import { Product, ProductCategory } from "../../domain/models/product.model";
 import { User, UserEngineering } from "../../domain/models/user.model";
 
@@ -197,6 +198,47 @@ export class DataService {
      */
     getAllProductsSpringBoot(countProducts: number): Observable<Product[]> {
         return this.httpClient.get<Product[]>(`${this.springBootUrl}/products/${countProducts}`);
+    }
+
+    /**
+     * Obtiene el listado de libros desde datos locales simulados.
+     *
+     * @param countBooks - Cantidad de libros a solicitar
+     * @returns Observable que emite un arreglo de {@link Book}
+     */
+    getAllBooksLocal(countBooks: number): Observable<Book[]> {
+        const books: Book[] = [];
+        const bookGenres: BookGenre[] = ['Ficcion', 'Ciencia', 'Historia', 'Tecnologia'];
+        for (let i = 1; i <= countBooks; i++) {
+            books.push({
+                id: i,
+                title: faker.book.title(),
+                author: faker.book.author(),
+                genre: faker.helpers.arrayElement(bookGenres),
+                year: faker.number.int({ min: 1950, max: 2024 }),
+            });
+        }
+        return of(books);
+    }
+
+    /**
+     * Obtiene el listado de libros desde el backend Node.js.
+     *
+     * @param countBooks - Cantidad de libros a solicitar
+     * @returns Observable que emite un arreglo de {@link Book}
+     */
+    getAllBooksNode(countBooks: number): Observable<Book[]> {
+        return this.httpClient.get<Book[]>(`${this.nodeUrl}/books/${countBooks}`);
+    }
+
+    /**
+     * Obtiene el listado de libros desde el backend SpringBoot.
+     *
+     * @param countBooks - Cantidad de libros a solicitar
+     * @returns Observable que emite un arreglo de {@link Book}
+     */
+    getAllBooksSpringBoot(countBooks: number): Observable<Book[]> {
+        return this.httpClient.get<Book[]>(`${this.springBootUrl}/books/${countBooks}`);
     }
 
 }
