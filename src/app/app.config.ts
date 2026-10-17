@@ -43,14 +43,14 @@ export const appConfig: ApplicationConfig = {
   providers: [
 
     //Local Providers
-    //{ provide: UserRepository, useClass: UserLocalRepositoryImpl },
-    //{ provide: ProductRepository, useClass: ProductLocalRepositoryImpl },
-    //{ provide: BookRepository, useClass: BookLocalRepositoryImpl },
+    { provide: UserRepository, useClass: UserLocalRepositoryImpl },
+    { provide: ProductRepository, useClass: ProductLocalRepositoryImpl },
+    { provide: BookRepository, useClass: BookLocalRepositoryImpl },
     
     //Node Providers
-    { provide: UserRepository, useClass: UserNodeRepositoryImpl },
-    { provide: ProductRepository, useClass: ProductNodeRepositoryImpl },
-    { provide: BookRepository, useClass: BookNodeRepositoryImpl },
+    //{ provide: UserRepository, useClass: UserNodeRepositoryImpl },
+    //{ provide: ProductRepository, useClass: ProductNodeRepositoryImpl },
+    //{ provide: BookRepository, useClass: BookNodeRepositoryImpl },
 
     //SpringBoot Providers
     //{ provide: UserRepository, useClass: UserSpringBootRepositoryImpl },
